@@ -1,0 +1,17 @@
+services:
+
+  postgres:
+    image: postgres:13
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address ":9001"

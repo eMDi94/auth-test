@@ -1,0 +1,48 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="create_database" author="user">
+        <createSequence sequenceName="id_sequence" startValue="1000" />
+        <createTable tableName="users">
+            <column name="id" type="bigint" defaultValueSequenceNext="id_sequence">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="fiscal_code" type="varchar(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="password_hash" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="is_active" type="boolean" />
+        </createTable>
+        <createIndex tableName="users" indexName="idx_users_email">
+            <column name="email" />
+        </createIndex>
+        <createIndex tableName="users" indexName="idx_users_fiscal_code">
+            <column name="fiscal_code" />
+        </createIndex>
+
+        <createTable tableName="activation_token">
+            <column name="token" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="verified" type="boolean" />
+        </createTable>
+        <addForeignKeyConstraint baseTableName="activation_token" baseColumnNames="user_id" constraintName="fk_user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id" />
+    </changeSet>
+</databaseChangeLog>
