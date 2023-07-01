@@ -74,5 +74,4 @@ public class UserService {
         activationToken.getUser().setIsActive(Boolean.TRUE);
         userRepository.save(activationToken.getUser());
     }
-
 }

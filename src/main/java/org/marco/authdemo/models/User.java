@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "USERS")
-@NamedQuery(name = User.FIND_BY_FISCAL_CODE, query = "SELECT u FROM User u WHERE u.fiscalCode = :fiscalCode")
 public class User {
 
     public static final String FIND_BY_FISCAL_CODE = "Users.findByFiscalCode";
