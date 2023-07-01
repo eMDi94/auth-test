@@ -9,7 +9,6 @@ import org.marco.authdemo.exceptions.ApplicationException;
 import org.marco.authdemo.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +24,14 @@ public class UserController {
         public static final String REGISTER_PAGE = "users/register";
         public static final String REGISTERED_PAGE = "users/registered";
         public static final String CONFIRM_REGISTRATION = "users/confirm_registration";
+        public static final String CONFIRMED = "users/registration_confirmed";
     }
 
     private static class Redirects {
         public static final String REDIRECT_TO_REGISTER = "redirect:/users/register";
         public static final String REDIRECT_TO_REGISTERED = "redirect:/users/registered";
+        public static final String REDIRECT_TO_CONFIRMED = "redirect:/users/confirmed";
+        public static final String REDIRECT_TO_CONFIRM = "redirect:/users/confirm-registration?token=";
     }
 
     private final UserService userService;
@@ -41,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public String postRegisterUser(@Valid RegisterUserRequest user, BindingResult bindingResult, Model model) {
+    public String postRegisterUser(@Valid RegisterUserRequest user) {
         try {
             userService.registerUser(user);
             return Redirects.REDIRECT_TO_REGISTERED;
@@ -60,7 +62,24 @@ public class UserController {
     public String getConfirmRegistration(Model model, @RequestParam(name = "token") String token) {
         boolean isTokenPresent = userService.tokenExists(token);
         model.addAttribute("isTokenPresent", isTokenPresent);
-        model.addAttribute("request", new ConfirmUserRegistrationRequest());
+        ConfirmUserRegistrationRequest request = new ConfirmUserRegistrationRequest(token);
+        model.addAttribute("request", request);
         return Pages.CONFIRM_REGISTRATION;
+    }
+
+    @PostMapping("confirm-registration")
+    public String confirmRegistration(@Valid ConfirmUserRegistrationRequest request) {
+        try {
+            userService.confirmUser(request);
+            return Redirects.REDIRECT_TO_CONFIRMED;
+        } catch (ApplicationException e) {
+            log.error(e.getMessage(), e);
+            return Redirects.REDIRECT_TO_CONFIRM + request.getToken();
+        }
+    }
+
+    @GetMapping("confirmed")
+    public String confirmed() {
+        return Pages.CONFIRMED;
     }
 }

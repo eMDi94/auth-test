@@ -4,8 +4,10 @@ import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.marco.authdemo.dto.ConfirmUserRegistrationRequest;
 import org.marco.authdemo.dto.RegisterUserRequest;
 import org.marco.authdemo.exceptions.ApplicationException;
+import org.marco.authdemo.models.ActivationToken;
 import org.marco.authdemo.models.User;
 import org.marco.authdemo.repositories.UserRepository;
 import org.marco.authdemo.storage.IUserDocumentStorage;
@@ -58,6 +60,19 @@ public class UserService {
 
     public boolean tokenExists(@NonNull String token) {
         return activationJwtTokenService.isTokenPresent(token);
+    }
+
+    @Transactional(rollbackOn = ApplicationException.class)
+    public void confirmUser(@NonNull ConfirmUserRegistrationRequest request) throws ApplicationException {
+        ActivationToken activationToken = activationJwtTokenService.findAndVerifyActivationToken(request.getToken());
+
+        if (!request.getFiscalCode().equals(activationToken.getUser().getFiscalCode())) {
+            log.error("The token refers to another user");
+            throw new ApplicationException("Invalid token");
+        }
+
+        activationToken.getUser().setIsActive(Boolean.TRUE);
+        userRepository.save(activationToken.getUser());
     }
 
 }

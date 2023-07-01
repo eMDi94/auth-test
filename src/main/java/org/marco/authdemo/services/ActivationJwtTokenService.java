@@ -67,7 +67,7 @@ public class ActivationJwtTokenService {
         try {
             DecodedJWT decodedJWT = getVerifier().verify(token);
             Instant expiredInstant = decodedJWT.getExpiresAtAsInstant();
-            if (expiredInstant.isAfter(getClock().instant())) {
+            if (!expiredInstant.isAfter(getClock().instant())) {
                 log.error("The token is already expired");
                 throw new ApplicationException("Expired token");
             }
