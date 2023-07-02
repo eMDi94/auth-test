@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AuthDemo - Registrati</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="w-screen h-screen bg-emerald-50">
+    <div class="w-full flex justify-center">
+        <div class="w-3/6 rounded-lg bg-white mt-20 py-5">
+            <div class="w-full text-center text-3xl font-bold">
+                Registrati
+            </div>
+            <form action="#" class="w-full flex flex-col items-center mt-5" th:action="@{/registration/register}" th:object="${user}" enctype="multipart/form-data" method="post">
+                <div class="grid grid-cols-2 gap-4">
+                    <label for="first-name">Nome</label>
+                    <input type="text" th:field="*{firstName}" id="first-name" placeholder="Nome..." class="border border-black px-2 py-1 rounded-lg" />
+
+                    <label for="last-name">Cognome</label>
+                    <input type="text" th:field="*{lastName}" id="last-name" placeholder="Cognome..." class="border border-black px-2 py-1 rounded-lg" />
+
+                    <label for="fiscal-code">Codice Fiscale</label>
+                    <input type="text" th:field="*{fiscalCode}" id="fiscal-code" placeholder="Codice Fiscale..." class="border border-black px-2 py-1 rounded-lg" />
+
+                    <label for="username">Username</label>
+                    <input type="text" th:field="*{username}" id="username" placeholder="Username..." class="border border-black px-2 py-1 rounded-lg" />
+
+                    <label for="email">Email</label>
+                    <input type="text" th:field="*{email}" id="email" placeholder="Email..." class="border border-black px-2 py-1 rounded-lg" />
+
+                    <label for="password">Password</label>
+                    <input type="password" th:field="*{password}" id="password" placeholder="Password..." class="border border-black px-2 py-1 rounded-lg" />
+
+                    <label for="password-confirmation">Password confirmation</label>
+                    <input type="password" th:field="*{passwordConfirmation}" id="password-confirmation" placeholder="Password confirmation..." class="border border-black px-2 py-1 rounded-lg" />
+
+                    <div class="col-span-2">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file-input">Carica file</label>
+                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file-input" type="file" th:field="*{document}">
+                    </div>
+                </div>
+                <input type="submit" class="text-white text-lg rounded-lg px-2 py-1 bg-emerald-500 mt-5 cursor-pointer hover:bg-emerald-700" value="Invia Registrazione" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>
