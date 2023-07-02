@@ -2,7 +2,7 @@ package org.marco.authdemo.listeners;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.marco.authdemo.repositories.UserRepository;
+import org.marco.authdemo.core.repositories.UserRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
