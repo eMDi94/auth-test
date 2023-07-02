@@ -53,4 +53,18 @@ public class User {
     public boolean isUserActive() {
         return Boolean.TRUE.equals(getIsActive());
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", fiscalCode='" + fiscalCode + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

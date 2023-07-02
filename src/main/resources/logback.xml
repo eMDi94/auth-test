@@ -6,11 +6,9 @@
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
-                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1}): %mask(%msg)%\n%throwable
-            </Pattern>
-        </layout>
+        <encoder>
+            <pattern>%d [%thread] %-5level %-50logger{40} - %mask(%msg) %n</pattern>
+        </encoder>
     </appender>
 
     <appender name="RollingFile"
@@ -18,7 +16,7 @@
         <file>${LOGS}/application.log</file>
 
         <encoder>
-            <pattern>%black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1}): %mask(%msg)%\n%throwable</pattern>
+            <pattern>%d [%thread] %-5level %-50logger{40} - %mask(%msg) %n</pattern>
         </encoder>
 
         <rollingPolicy

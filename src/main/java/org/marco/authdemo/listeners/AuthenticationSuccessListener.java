@@ -1,18 +1,27 @@
 package org.marco.authdemo.listeners;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.marco.authdemo.repositories.UserRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
-@Component
+
 @Slf4j
+@Component
+@RequiredArgsConstructor
 public class AuthenticationSuccessListener {
+
+    private final UserRepository userRepository;
 
     @EventListener
     public void onLoginEvent(InteractiveAuthenticationSuccessEvent event) {
         log.info("A user logged in");
-        log.info(event.toString());
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) event.getAuthentication().getPrincipal();
+
+        userRepository.findByUsername(principal.getUsername())
+                .ifPresent(user -> log.info(user.toString()));
     }
 
 }
