@@ -35,6 +35,7 @@ public class RegisterUserRequest {
     private String password;
 
     @NotNull
+    @Length(min = 8, max = 32)
     private String passwordConfirmation;
 
     private MultipartFile document;
