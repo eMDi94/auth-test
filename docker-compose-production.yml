@@ -29,3 +29,6 @@ services:
       MINIO_ENDPOINT: http://minio:9000
       MINIO_SECRET_KEY: minioadmin
       MINIO_ACCESS_KEY: minioadmin
+    depends_on:
+      - postgres
+      - minio
