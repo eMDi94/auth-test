@@ -30,4 +30,4 @@ Attualmente, dopo la registrazione si viene reinderizzati direttamente alla pagi
 Il funzionamento corretto sarebbe che il link per la conferma venisse mandato tramite mail. Ho deciso di cortocircuitarlo solo a scopo di demo.
 
 ## Scelte tecniche
-Le scelte tecniche sono state descritte nel documento allegato.
+Le scelte tecniche sono state descritte nel documento allegato, solution.pdf.
