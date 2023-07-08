@@ -1,4 +1,4 @@
-package org.marco.authdemo.listeners;
+package org.marco.authdemo.authentication.listeners;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
