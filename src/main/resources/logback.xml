@@ -2,7 +2,7 @@
 <configuration>
     <property name="LOGS" value="./logs" />
 
-    <conversionRule conversionWord="mask" converterClass="org.marco.authdemo.system.gdpr.LogMaskConverter" />
+    <conversionRule conversionWord="mask" converterClass="org.marco.authdemo.system.gdpr.log.LogMaskConverter" />
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">

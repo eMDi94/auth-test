@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.marco.authdemo.system.gdpr.attributes.StringAttributeConverter;
 
 @Entity
 @Getter
@@ -21,18 +22,23 @@ public class User {
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false)
+    @Convert(converter = StringAttributeConverter.class)
     private String firstName;
 
     @Column(name = "LAST_NAME", nullable = false)
+    @Convert(converter = StringAttributeConverter.class)
     private String lastName;
 
     @Column(name = "EMAIL", nullable = false, unique = true)
+    @Convert(converter = StringAttributeConverter.class)
     private String email;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
+    @Convert(converter = StringAttributeConverter.class)
     private String username;
 
     @Column(name = "FISCAL_CODE", nullable = false, unique = true)
+    @Convert(converter = StringAttributeConverter.class)
     private String fiscalCode;
 
     @Column(name = "PASSWORD_HASH", nullable = false)
