@@ -32,8 +32,10 @@ Il funzionamento corretto sarebbe che il link per la conferma venisse mandato tr
 ## Scelte tecniche
 Le scelte tecniche sono state descritte nel documento allegato, solution.pdf.
 
+Per il login, è stato utilizzato il <b>form login</b> messo a disposizione da Spring.
+
 ## Organizzazione del codice
-Le classi che implementano la soluzione sono raggruppate in package seguendo le direttive BCE.
-Ogni i package sono identificati in base al contesto che racchiudono e contengono tutte le classe necessarie per quel contesto.
+Le classi che implementano la soluzione sono raggruppate in package seguendo le direttive <b>BCE</b> (Boundary, Context and Entity).
+I package sono identificati in base al contesto che racchiudono e contengono tutte le classe necessarie per quel contesto.
 Ad esempio: il package <b>users</b> contiene tutte le classi necessarie per il contesto legato agli utenti, mentre il package
 <b>userregistration</b> contiene tutte le classi necessarie per effettuare la registrazione dell'utente.

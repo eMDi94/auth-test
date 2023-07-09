@@ -1,4 +1,4 @@
-package org.marco.authdemo.users.utils;
+package org.marco.authdemo.authentication.utils;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -29,7 +29,7 @@ public final class QRCodeUtils {
         return pngData;
     }
 
-    public static byte[] generateQRCode(@NonNull byte[] content, int width, int height) throws WriterException, IOException {
+    public static byte[] generateQRCode(byte @NonNull [] content, int width, int height) throws WriterException, IOException {
         String contentString = new String(content, StandardCharsets.UTF_8);
         return generateQRCode(contentString, width, height);
     }

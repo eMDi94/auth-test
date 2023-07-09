@@ -1,5 +1,6 @@
 package org.marco.authdemo.authentication.services;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.marco.authdemo.users.models.User;
@@ -21,6 +22,7 @@ public class UserAuthenticationService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)

@@ -26,23 +26,23 @@ public class User {
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @Convert(converter = StringAttributeConverter.class)
+    //@Convert(converter = StringAttributeConverter.class) FIXME: decrypt error
     private String firstName;
 
     @Column(name = "LAST_NAME", nullable = false)
-    @Convert(converter = StringAttributeConverter.class)
+    //@Convert(converter = StringAttributeConverter.class) FIXME: decrypt error
     private String lastName;
 
     @Column(name = "EMAIL", nullable = false, unique = true)
-    @Convert(converter = StringAttributeConverter.class)
+    //@Convert(converter = StringAttributeConverter.class) FIXME: decrypt error
     private String email;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
-    @Convert(converter = StringAttributeConverter.class)
+    //@Convert(converter = StringAttributeConverter.class) FIXME: decrypt error
     private String username;
 
     @Column(name = "FISCAL_CODE", nullable = false, unique = true)
-    @Convert(converter = StringAttributeConverter.class)
+    //@Convert(converter = StringAttributeConverter.class) FIXME: decrypt error
     private String fiscalCode;
 
     @Column(name = "PASSWORD_HASH", nullable = false)

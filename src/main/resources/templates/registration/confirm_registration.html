@@ -11,7 +11,7 @@
             <div class="text-center text-2xl font-bold">
                 Conferma il tuo Codice Fiscale
             </div>
-            <form action="#" class="w-full flex flex-col items-center mt-5" th:object="${request}" th:action="@{/registration/confirm-registration}" method="post">
+            <form action="#" class="w-full flex flex-col items-center mt-5" th:object="${confirmUserRegistrationRequest}" th:action="@{/registration/confirm-registration}" method="post">
                 <input type="hidden" th:field="*{token}" th:value="*{token}" />
                 <div class="grid grid-cols-2 gap-4">
                     <label for="fiscal-code">Codice Fiscale</label>
@@ -19,6 +19,12 @@
                 </div>
 
                 <input type="submit" class="text-white text-lg rounded-lg px-2 py-1 bg-emerald-500 mt-5 cursor-pointer hover:bg-emerald-700" value="Invia" />
+
+                <div th:if="${#fields.hasAnyErrors()}" class="text-red-600 mt-2">
+                    <ul>
+                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                    </ul>
+                </div>
             </form>
         </div>
     </div>

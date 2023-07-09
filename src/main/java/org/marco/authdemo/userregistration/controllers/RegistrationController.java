@@ -13,6 +13,7 @@ import org.marco.authdemo.users.exceptions.UserStorageException;
 import org.marco.authdemo.users.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,14 +45,18 @@ public class RegistrationController {
 
     @GetMapping("register")
     public String getRegisterUser(Model model) {
-        model.addAttribute("user", new RegisterUserRequest());
+        model.addAttribute("registerUserRequest", new RegisterUserRequest());
         return Pages.REGISTER_PAGE;
     }
 
     @PostMapping("register")
-    public String postRegisterUser(@Valid RegisterUserRequest user) {
+    public String postRegisterUser(@Valid RegisterUserRequest registerUserRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return Pages.REGISTER_PAGE;
+        }
+
         try {
-            ActivationToken token = userRegistrationService.registerUser(user);
+            ActivationToken token = userRegistrationService.registerUser(registerUserRequest);
             // TODO: To change when email is implemented, short-circuited to the fiscal code page confirmation
             return Redirects.REDIRECT_TO_CONFIRM + token.getToken();
             //return Redirects.REDIRECT_TO_REGISTERED;
@@ -71,18 +76,22 @@ public class RegistrationController {
         boolean isTokenPresent = userRegistrationService.tokenExists(token);
         model.addAttribute("isTokenPresent", isTokenPresent);
         ConfirmUserRegistrationRequest request = new ConfirmUserRegistrationRequest(token);
-        model.addAttribute("request", request);
+        model.addAttribute("confirmUserRegistrationRequest", request);
         return Pages.CONFIRM_REGISTRATION;
     }
 
     @PostMapping("confirm-registration")
-    public String confirmRegistration(@Valid ConfirmUserRegistrationRequest request) {
+    public String confirmRegistration(@Valid ConfirmUserRegistrationRequest confirmUserRegistrationRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return Pages.CONFIRM_REGISTRATION;
+        }
+
         try {
-            User user = userRegistrationService.confirmUser(request);
+            User user = userRegistrationService.confirmUser(confirmUserRegistrationRequest);
             return Redirects.REDIRECT_TO_CONFIRMED + user.getId();
         } catch (UserRegistrationException e) {
             log.error(e.getMessage(), e);
-            return Redirects.REDIRECT_TO_CONFIRM + request.getToken();
+            return Redirects.REDIRECT_TO_CONFIRM + confirmUserRegistrationRequest.getToken();
         }
     }
 

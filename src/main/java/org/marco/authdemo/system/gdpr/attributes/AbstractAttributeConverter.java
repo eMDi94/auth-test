@@ -31,8 +31,7 @@ public abstract class AbstractAttributeConverter<T> implements AttributeConverte
     }
 
     private TextEncryptor getEncryptor() {
-        return DATABASE_ENCRYPTION_PASSWORD != null ?
-                Encryptors.text(DATABASE_ENCRYPTION_PASSWORD, SALT) : null;
+        return DATABASE_ENCRYPTION_PASSWORD != null ? Encryptors.text(DATABASE_ENCRYPTION_PASSWORD, SALT) : null;
     }
 
     abstract protected T stringToEntityAttribute(String data);
@@ -44,8 +43,7 @@ public abstract class AbstractAttributeConverter<T> implements AttributeConverte
         return encryptor.encrypt(attributeString);
     }
 
-    private T decrypt(
-            TextEncryptor encryptor, String attributeString) {
+    private T decrypt(TextEncryptor encryptor, String attributeString) {
         String decryptedAttributeString = encryptor.decrypt(attributeString);
         return stringToEntityAttribute(decryptedAttributeString);
     }

@@ -1,7 +1,7 @@
 package org.marco.authdemo.userregistration.controllers.requests;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.marco.authdemo.validation.annotations.FieldMatch;
@@ -11,30 +11,29 @@ import java.util.Optional;
 
 @Data
 @FieldMatch.List({
-        @FieldMatch(first = "password", second = "passwordConfirmation", message = "The password fields must match")
+        @FieldMatch(first = "password", second = "passwordConfirmation", message = "I campi password devono coincidere")
 })
 public class RegisterUserRequest {
-    @NotNull
+    @NotBlank(message = "Il nome è obbligatorio")
     private String firstName;
 
-    @NotNull
+    @NotBlank(message = "Il cognome è obbligatorio")
     private String lastName;
 
-    @NotNull
-    @Email
+    @Email(message = "Email non valida")
     private String email;
 
-    @NotNull
+    @NotBlank(message = "Username non valido")
     private String username;
 
-    @NotNull
+    @NotBlank(message = "Codice Fiscale non inserito")
     private String fiscalCode;
 
-    @NotNull
+    @NotBlank(message = "La password deve essere compresa tra 8 e 32 caratteri")
     @Length(min = 8, max = 32)
     private String password;
 
-    @NotNull
+    @NotBlank(message = "La password deve essere compresa tra 8 e 32 caratteri")
     @Length(min = 8, max = 32)
     private String passwordConfirmation;
 

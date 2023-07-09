@@ -16,7 +16,7 @@ import org.marco.authdemo.users.models.User;
 import org.marco.authdemo.users.services.IUserDocumentStorage;
 import org.marco.authdemo.users.services.UserSecretGenerator;
 import org.marco.authdemo.users.services.UserService;
-import org.marco.authdemo.users.utils.QRCodeUtils;
+import org.marco.authdemo.authentication.utils.QRCodeUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
