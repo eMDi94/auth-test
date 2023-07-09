@@ -30,7 +30,7 @@ public class UserServiceTest {
     @Test
     void testUserRegistration() throws UserException {
         String encodedPassword = passwordEncoder.encode("my-super-secret-password");
-        User user = new User("firstName", "lastName", "email@test.com", "username", UUID.randomUUID().toString(), encodedPassword);
+        User user = new User("firstName", "lastName", "email@test.com", "username", UUID.randomUUID().toString(), encodedPassword, false);
 
         user = userService.registerUser(user);
 

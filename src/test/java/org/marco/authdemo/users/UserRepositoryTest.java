@@ -24,7 +24,7 @@ public class UserRepositoryTest {
     @Test
     void testRepositoryUser() {
         String encodedPassword = passwordEncoder.encode("my-super-secret-password");
-        User user = new User("firstName", "lastName", "email@test.com", "username", "sono-un-codice-fiscale", encodedPassword);
+        User user = new User("firstName", "lastName", "email@test.com", "username", "sono-un-codice-fiscale", encodedPassword, false);
 
         user = userRepository.save(user);
 

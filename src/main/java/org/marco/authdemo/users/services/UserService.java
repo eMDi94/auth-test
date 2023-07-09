@@ -4,15 +4,9 @@ import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.marco.authdemo.userregistration.controllers.requests.ConfirmUserRegistrationRequest;
-import org.marco.authdemo.userregistration.controllers.requests.RegisterUserRequest;
-import org.marco.authdemo.activationtoken.models.ActivationToken;
-import org.marco.authdemo.activationtoken.services.ActivationJwtTokenService;
 import org.marco.authdemo.users.exceptions.UserException;
-import org.marco.authdemo.users.exceptions.UserStorageException;
 import org.marco.authdemo.users.models.User;
 import org.marco.authdemo.users.repositories.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -41,5 +35,10 @@ public class UserService {
     public User confirmUser(@NonNull User user) {
         user.setIsActive(Boolean.TRUE);
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public Optional<byte[]> findUserSecretByUserId(@NonNull Long userId) {
+        return userRepository.findById(userId).flatMap(user -> Optional.ofNullable(user.getSecret()));
     }
 }

@@ -31,8 +31,11 @@
                     <label for="password">Password</label>
                     <input type="password" th:field="*{password}" id="password" placeholder="Password..." class="border border-black px-2 py-1 rounded-lg" />
 
-                    <label for="password-confirmation">Password confirmation</label>
-                    <input type="password" th:field="*{passwordConfirmation}" id="password-confirmation" placeholder="Password confirmation..." class="border border-black px-2 py-1 rounded-lg" />
+                    <label for="password-confirmation">Conferma password</label>
+                    <input type="password" th:field="*{passwordConfirmation}" id="password-confirmation" placeholder="Conferma password..." class="border border-black px-2 py-1 rounded-lg" />
+
+                    <label for="two-factor-auth">Autorizzazione a 2 fattori</label>
+                    <input type="checkbox" th:field="*{is2FAEnabled}" id="two-factor-auth" class="border border-black px-2 py-1 rounded-lg" />
 
                     <div class="col-span-2">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file-input">Carica file</label>

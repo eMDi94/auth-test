@@ -15,6 +15,10 @@ public class User {
 
     public static final String FIND_BY_FISCAL_CODE = "Users.findByFiscalCode";
 
+    public enum NotificationMethod {
+        EMAIL, WHATSAPP, SMS, SLACK
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
     @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", initialValue = 1000, allocationSize = 1)
@@ -47,13 +51,25 @@ public class User {
     @Column(name = "IS_ACTIVE")
     private Boolean isActive = Boolean.FALSE;
 
-    public User(String firstName, String lastName, String email, String username, String fiscalCode, String passwordHash) {
+    @Column(name = "NOTIFICATION_METHOD", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private NotificationMethod notificationMethod = NotificationMethod.EMAIL;
+
+    @Column(name = "IS_2FA_ENABLED")
+    private Boolean is2FAEnabled;
+
+    @Lob
+    @Column(name = "SECRET", columnDefinition = "BLOB")
+    private byte[] secret;
+
+    public User(String firstName, String lastName, String email, String username, String fiscalCode, String passwordHash, Boolean is2FAEnabled) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.fiscalCode = fiscalCode;
         this.passwordHash = passwordHash;
+        this.is2FAEnabled = is2FAEnabled;
     }
 
     public boolean isUserActive() {
@@ -72,5 +88,9 @@ public class User {
                 ", passwordHash='" + passwordHash + '\'' +
                 ", isActive=" + isActive +
                 '}';
+    }
+
+    public boolean is2FAEnabled() {
+        return Boolean.TRUE.equals(is2FAEnabled);
     }
 }

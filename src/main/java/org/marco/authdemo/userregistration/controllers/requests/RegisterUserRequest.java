@@ -40,6 +40,8 @@ public class RegisterUserRequest {
 
     private MultipartFile document;
 
+    private Boolean is2FAEnabled;
+
     public Optional<MultipartFile> getDocument() {
         return Optional.ofNullable(document);
     }

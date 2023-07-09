@@ -10,12 +10,15 @@ import org.marco.authdemo.userregistration.exceptions.UserRegistrationException;
 import org.marco.authdemo.userregistration.services.UserRegistrationService;
 import org.marco.authdemo.users.exceptions.UserException;
 import org.marco.authdemo.users.exceptions.UserStorageException;
+import org.marco.authdemo.users.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Base64;
 
 @Controller
 @RequestMapping("/registration/")
@@ -33,7 +36,7 @@ public class RegistrationController {
     private static class Redirects {
         public static final String REDIRECT_TO_REGISTER = "redirect:/registration/register";
         public static final String REDIRECT_TO_REGISTERED = "redirect:/registration/registered";
-        public static final String REDIRECT_TO_CONFIRMED = "redirect:/registration/confirmed";
+        public static final String REDIRECT_TO_CONFIRMED = "redirect:/registration/confirmed?user-id=";
         public static final String REDIRECT_TO_CONFIRM = "redirect:/registration/confirm-registration?token=";
     }
 
@@ -75,8 +78,8 @@ public class RegistrationController {
     @PostMapping("confirm-registration")
     public String confirmRegistration(@Valid ConfirmUserRegistrationRequest request) {
         try {
-            userRegistrationService.confirmUser(request);
-            return Redirects.REDIRECT_TO_CONFIRMED;
+            User user = userRegistrationService.confirmUser(request);
+            return Redirects.REDIRECT_TO_CONFIRMED + user.getId();
         } catch (UserRegistrationException e) {
             log.error(e.getMessage(), e);
             return Redirects.REDIRECT_TO_CONFIRM + request.getToken();
@@ -84,7 +87,12 @@ public class RegistrationController {
     }
 
     @GetMapping("confirmed")
-    public String confirmed() {
+    public String confirmed(@RequestParam(name = "user-id") Long userId, Model model) {
+        userRegistrationService.getQRCodeSecret(userId, 250, 250)
+                .ifPresent(qrCode -> {
+                    String imageString = Base64.getEncoder().encodeToString(qrCode);
+                    model.addAttribute("qrCode", imageString);
+                });
         return Pages.CONFIRMED;
     }
 }

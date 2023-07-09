@@ -24,6 +24,11 @@
                 <constraints nullable="false" />
             </column>
             <column name="is_active" type="boolean" />
+            <column name="notification_method" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="is_2fa_enabled" type="boolean" />
+            <column name="secret" type="blob" />
         </createTable>
         <createIndex tableName="users" indexName="idx_users_email">
             <column name="email" />

@@ -10,7 +10,15 @@
         <div class="w-3/6 bg-white rounded-lg px-4 py-6 mt-10 font-bold text-2xl text-center">
             Congratulazioni!<br />
             Hai verificato la tua identità
-            <div class="w-full flex justify-center">
+
+            <div th:if="${qrCode}">
+                <div class="w-full flex flex-col items-center justify-center">
+                    <h6 class="text-xl font-bold">Inquadra il codice</h6>
+                    <img th:src="${'data:image/png;base64,' + qrCode}" alt="" height="200" width="200">
+                </div>
+            </div>
+
+            <div class="w-full flex justify-center mt-5">
                 <a href="/users/login" class="bg-emerald-500 hover:bg-emerald-700 rounded-lg text-white text-center px-2 py-1 cursor-pointer">
                     Vai al login
                 </a>
