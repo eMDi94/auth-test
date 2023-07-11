@@ -1,5 +1,6 @@
 package org.marco.authdemo.authentication.listeners;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.marco.authdemo.users.repositories.UserRepository;
@@ -16,6 +17,7 @@ public class AuthenticationSuccessListener {
     private final UserRepository userRepository;
 
     @EventListener
+    @Transactional
     public void onLoginEvent(InteractiveAuthenticationSuccessEvent event) {
         log.info("A user logged in");
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) event.getAuthentication().getPrincipal();
